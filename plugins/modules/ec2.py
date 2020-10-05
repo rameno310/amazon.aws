@@ -1207,12 +1207,6 @@ def create_instances(module, ec2, vpc, override_count=None):
                     module.fail_json(
                         msg="placement_group parameter requires Boto version 2.3.0 or higher.")
 
-                # You can't tell spot instances to 'stop'; they will always be
-                # 'terminate'd. For convenience, we'll ignore the latter value.
-                if instance_initiated_shutdown_behavior and instance_initiated_shutdown_behavior != 'terminate':
-                    module.fail_json(
-                        msg="instance_initiated_shutdown_behavior=stop is not supported for spot instances.")
-
                 if spot_launch_group and isinstance(spot_launch_group, string_types):
                     params['launch_group'] = spot_launch_group
 
